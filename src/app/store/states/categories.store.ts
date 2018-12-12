@@ -1,12 +1,12 @@
 import { Store, StoreConfig } from '@datorama/akita';
-import { Category } from '../../models';
 import { CategoriesStoreName } from './index';
+import { Category } from '../models/category.model';
 
 export interface CategoriesState {
 	categories: Category[];
 }
 
-export function createInitialState(): CategoriesState {
+function createInitialState(): CategoriesState {
 	return { categories: [] };
 }
 

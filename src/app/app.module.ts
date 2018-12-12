@@ -11,6 +11,8 @@ import { CategoryService } from './services/category.service';
 import { CategoriesQuery } from './store/queries';
 import { MoviesListComponent } from './components/movies-list.component';
 import { CategoriesStore } from './store/states/categories.store';
+import { AkitaNgRouterStoreModule } from '@datorama/akita-ng-router-store';
+import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
 
 const routes: Routes = [
 	{ path: '', component: CategoriesListComponent, pathMatch: 'full' },
@@ -28,7 +30,9 @@ const routes: Routes = [
 	],
 	imports: [
 		BrowserModule,
-		RouterModule.forRoot(routes)
+		RouterModule.forRoot(routes),
+		AkitaNgDevtools.forRoot(),
+		AkitaNgRouterStoreModule.forRoot()
 	],
 	providers: [ApiService, CategoryService, CategoriesQuery, CategoriesStore],
 	bootstrap: [AppComponent]

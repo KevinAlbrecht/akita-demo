@@ -1,16 +1,15 @@
 import { OnInit, Component } from '@angular/core';
 import { Observable } from 'rxjs';
+import { MoviesQuery } from '../store/queries/movies.query';
+import { Movie } from '../store/models/movie.model';
 
 
 @Component({
 	selector: 'app-category-detail',
 	template: `
-	<ng-container>
-	{{(selectedMoviesState$|async).error}}
-	</ng-container>
 	<p class="link link-simple" (click)="goToCat()">< Back to categories</p>
-	<ng-container *ngIf="!(selectedMoviesState$ | async).loading; else loader">
-			<app-movies-list [movies]="(selectedMoviesState$ |async).data"></app-movies-list>
+	<ng-container *ngIf="selectedMoviesState$ | async; else loader">
+			<app-movies-list [movies]="selectedMoviesState$ |async"></app-movies-list>
 	</ng-container>
 	<ng-template #loader>
 		<div class="loader"></div>
@@ -19,10 +18,11 @@ import { Observable } from 'rxjs';
 })
 export class CategoryDetailComponent implements OnInit {
 
-	selectedMoviesState$: Observable<any>;
+	movies$: Observable<Movie[]>;
 
 	// Here I got two store because of sample app
 	constructor(
+		private moviesQuery: MoviesQuery
 	) { }
 
 	goToCat() {
@@ -31,5 +31,6 @@ export class CategoryDetailComponent implements OnInit {
 	}
 
 	ngOnInit() {
+		this.movies$ = this.moviesQuery.moviesByCategoryId$;
 	}
 }

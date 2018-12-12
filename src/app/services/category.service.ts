@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { CategoriesStore } from '../store/states/categories.store';
-import { ID } from '@datorama/akita';
 import { ApiService } from './api.service';
-import { Category } from '../models';
 import { tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { Category } from '../store/models/category.model';
 
 @Injectable()
 export class CategoryService {

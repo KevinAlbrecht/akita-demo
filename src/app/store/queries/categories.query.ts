@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Query } from '@datorama/akita';
-import { Category } from 'src/app/models';
 import { CategoriesStore, CategoriesState } from '../states/categories.store';
 
 @Injectable()

@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
-import { Movie, Category } from '../models';
 import { db } from './db';
+import { Movie } from '../store/models/movie.model';
+import { Category } from '../store/models/category.model';
+import { ID } from '@datorama/akita';
 
 @Injectable()
 export class ApiService {
@@ -14,7 +16,7 @@ export class ApiService {
 		return of(db.movies).pipe(delay(this.delayTime));
 	}
 
-	getMoviesByCategoryId(categoryId: number): Observable<Movie[]> {
+	getMoviesByCategoryId(categoryId: ID): Observable<Movie[]> {
 		if (categoryId == 4) {
 			throw new Error('Bad Category');
 		}
