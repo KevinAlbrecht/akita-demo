@@ -3,7 +3,6 @@ import { Query } from '@datorama/akita';
 import { MoviesState, MoviesStore } from '../states';
 import { Observable, of } from 'rxjs';
 import { Movie } from '../models';
-import { ApplicationRouterQuery } from './';
 
 @Injectable()
 export class MoviesQuery extends Query<MoviesState> {

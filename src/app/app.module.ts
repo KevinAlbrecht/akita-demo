@@ -6,7 +6,7 @@ import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
 
 import { AppComponent } from './app.component';
 import { CategoriesListComponent } from './components/categories-list.component';
-import { ErrorComponent } from './components/error.component';
+import { ErrorMessageComponent } from './components/error-message.component';
 import { MoviesListComponent } from './components/movies-list.component';
 import { CategoryDetailComponent } from './components/category-detail.component';
 
@@ -18,7 +18,7 @@ import { CategoriesStore, MoviesStore } from './store/states';
 const routes: Routes = [
 	{ path: '', component: CategoriesListComponent, pathMatch: 'full' },
 	{ path: 'category/:categoryId', component: CategoryDetailComponent, pathMatch: 'full' },
-	{ path: 'error', component: ErrorComponent, pathMatch: 'full' }
+	{ path: '**', redirectTo: '', pathMatch: 'full' },
 ];
 
 const servicesToProvide = [ApiService, CategoryService, MovieService];
@@ -28,7 +28,7 @@ const storesToProvide = [CategoriesStore, MoviesStore];
 @NgModule({
 	declarations: [
 		AppComponent,
-		ErrorComponent,
+		ErrorMessageComponent,
 		CategoryDetailComponent,
 		CategoriesListComponent,
 		MoviesListComponent

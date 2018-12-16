@@ -4,6 +4,7 @@ import { delay } from 'rxjs/operators';
 import { db } from './db';
 import { Movie, Category } from '../store/models';
 import { ID } from '@datorama/akita';
+import { ApiError } from '../store/models/api-error.model';
 
 @Injectable()
 export class ApiService {
@@ -16,8 +17,9 @@ export class ApiService {
 	}
 
 	getMoviesByCategoryId(categoryId: ID): Observable<Movie[]> {
+		// voluntarily trigger error
 		if (categoryId == 4) {
-			throw new Error('Bad Category');
+			throw { code: 400, message: 'Bad category' } as ApiError;
 		}
 
 		return of(db.movies.reduce((datas, movie) => {

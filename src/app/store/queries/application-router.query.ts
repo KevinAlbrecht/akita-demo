@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Query, ID } from '@datorama/akita';
-import { RouterQuery, RouterStore, RouterState } from '@datorama/akita-ng-router-store';
-import { Observable, of } from 'rxjs';
 import { RouterStateSnapshot } from '@angular/router';
+import { Observable } from 'rxjs';
+import { RouterQuery, RouterStore, RouterState } from '@datorama/akita-ng-router-store';
+import { ID } from '@datorama/akita';
 
 @Injectable()
 export class ApplicationRouterQuery extends RouterQuery {
@@ -12,16 +12,16 @@ export class ApplicationRouterQuery extends RouterQuery {
 	constructor(protected store: RouterStore) {
 		super(store);
 	}
-	categoryIdParam$: Observable<ID> = this.select(s => this.getParameter(s, 'categoryId2'));
+	categoryIdParam$: Observable<ID> = this.select(s => this.getParameter(s, 'categoryId'));
 
-	private getParameter(snapshot: RouterState<RouterStateSnapshot>, parameterName: string) {
+	private getParameter(snapshot: RouterState<RouterStateSnapshot>, parameterName: string): ID {
 		if (!parameterName) {
-			throw this.noParamGiven;
+			Observable.throw(this.noParamGiven);
 		}
 
-		const value = snapshot.state.root.params['categoryId2'];
+		const value = snapshot.state.root.params[parameterName];
 		if (!value) {
-			throw this.badParamGiven;
+			Observable.throw(this.badParamGiven);
 		}
 
 		return value;
