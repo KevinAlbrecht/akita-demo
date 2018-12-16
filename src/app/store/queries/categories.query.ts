@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Query } from '@datorama/akita';
-import { CategoriesStore, CategoriesState } from '../states/categories.store';
+import { CategoriesStore, CategoriesState } from '../states';
 
 @Injectable()
 export class CategoriesQuery extends Query<CategoriesState> {

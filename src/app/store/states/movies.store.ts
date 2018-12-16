@@ -1,16 +1,17 @@
 import { Store, StoreConfig } from '@datorama/akita';
-import { CategoriesStoreName } from './index';
 import { Movie } from '../models/movie.model';
 
+const MoviesStoreName = 'movies';
+
 export interface MoviesState {
-	movies: Movie[];
+	moviesByCategoryId: Movie[];
 }
 
 function createInitialState(): MoviesState {
-	return { movies: [] };
+	return { moviesByCategoryId: [] };
 }
 
-@StoreConfig({ name: CategoriesStoreName })
+@StoreConfig({ name: MoviesStoreName })
 export class MoviesStore extends Store<MoviesState> {
 	constructor() {
 		super(createInitialState);

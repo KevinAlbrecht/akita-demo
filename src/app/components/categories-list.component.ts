@@ -33,6 +33,6 @@ export class CategoriesListComponent implements OnInit {
 		this.categories$ = this.categoriesQuery.categories$;
 		this.isLoading$ = this.categoriesQuery.selectLoading();
 
-		this.categoryService.getCategories().subscribe();
+		this.categoryService.setCategories().subscribe();
 	}
 }

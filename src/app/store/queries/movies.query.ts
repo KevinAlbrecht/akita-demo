@@ -1,23 +1,21 @@
 import { Injectable } from '@angular/core';
 import { Query } from '@datorama/akita';
-import { MoviesState, MovieStore } from '../states';
+import { MoviesState, MoviesStore } from '../states';
 import { Observable, of } from 'rxjs';
-import { Movie } from '../models/movie.model';
-import { ApplicationRouterQuery } from './application-router.query';
+import { Movie } from '../models';
+import { ApplicationRouterQuery } from './';
 
 @Injectable()
 export class MoviesQuery extends Query<MoviesState> {
 
-	constructor(protected store: MovieStore, private routerQuery: ApplicationRouterQuery) {
+	constructor(protected store: MoviesStore) {
 		super(store);
 	}
 
 	moviesByCategoryId$ = this.getMoviesByCategoryId();
-	count$ = this.select(s => s.movies.length);
+	moviesByCategoryIdCount$ = this.select(s => s.moviesByCategoryId.length);
 
 	private getMoviesByCategoryId(): Observable<Movie[]> {
-		return this.routerQuery.categoryIdParam$.pipe(
-			switchMap()
-		)
+		return this.select(s => s.moviesByCategoryId);
 	}
 }

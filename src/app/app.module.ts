@@ -1,24 +1,29 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { AkitaNgRouterStoreModule } from '@datorama/akita-ng-router-store';
+import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
 
 import { AppComponent } from './app.component';
 import { CategoriesListComponent } from './components/categories-list.component';
-import { Routes, RouterModule } from '@angular/router';
 import { ErrorComponent } from './components/error.component';
-import { CategoryDetailComponent } from './components/category-detail.component';
-import { ApiService } from './services/api.service';
-import { CategoryService } from './services/category.service';
-import { CategoriesQuery } from './store/queries';
 import { MoviesListComponent } from './components/movies-list.component';
-import { CategoriesStore } from './store/states/categories.store';
-import { AkitaNgRouterStoreModule } from '@datorama/akita-ng-router-store';
-import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
+import { CategoryDetailComponent } from './components/category-detail.component';
+
+import { CategoryService, MovieService, ApiService } from './services';
+import { CategoriesQuery, MoviesQuery, ApplicationRouterQuery } from './store/queries';
+import { CategoriesStore, MoviesStore } from './store/states';
+
 
 const routes: Routes = [
 	{ path: '', component: CategoriesListComponent, pathMatch: 'full' },
 	{ path: 'category/:categoryId', component: CategoryDetailComponent, pathMatch: 'full' },
 	{ path: 'error', component: ErrorComponent, pathMatch: 'full' }
 ];
+
+const servicesToProvide = [ApiService, CategoryService, MovieService];
+const queriesToProvide = [CategoriesQuery, MoviesQuery, ApplicationRouterQuery];
+const storesToProvide = [CategoriesStore, MoviesStore];
 
 @NgModule({
 	declarations: [
@@ -34,7 +39,7 @@ const routes: Routes = [
 		AkitaNgDevtools.forRoot(),
 		AkitaNgRouterStoreModule.forRoot()
 	],
-	providers: [ApiService, CategoryService, CategoriesQuery, CategoriesStore],
+	providers: [...servicesToProvide, ...queriesToProvide, ...storesToProvide],
 	bootstrap: [AppComponent]
 })
 export class AppModule { }

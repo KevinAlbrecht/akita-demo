@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { db } from './db';
-import { Movie } from '../store/models/movie.model';
-import { Category } from '../store/models/category.model';
+import { Movie, Category } from '../store/models';
 import { ID } from '@datorama/akita';
 
 @Injectable()

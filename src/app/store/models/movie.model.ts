@@ -1,5 +1,5 @@
 import { ID } from '@datorama/akita';
-import { Person } from './person.model';
+import { Person } from './';
 
 export type Movie = {
 	id: ID;

@@ -1,6 +1,7 @@
 import { Store, StoreConfig } from '@datorama/akita';
-import { CategoriesStoreName } from './index';
 import { Category } from '../models/category.model';
+
+const CategoriesStoreName = 'categories';
 
 export interface CategoriesState {
 	categories: Category[];
