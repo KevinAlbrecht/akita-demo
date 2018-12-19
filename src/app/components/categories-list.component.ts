@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, RouterStateSnapshot } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { CategoriesQuery } from '../store/queries';
 import { CategoryService } from '../services/category.service';
 import { Category } from '../store/models/category.model';
+import { take, takeUntil } from 'rxjs/operators';
 
 @Component({
 	selector: 'app-categories-list',

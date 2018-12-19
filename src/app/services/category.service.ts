@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CategoriesStore } from '../store/states';
 import { ApiService } from './api.service';
-import { tap } from 'rxjs/operators';
+import { tap, take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Category } from '../store/models';
 
@@ -14,6 +14,7 @@ export class CategoryService {
 		this.categoriesStore.setLoading(true);
 		return this.apiService.getCategories()
 			.pipe(
+				take(1),
 				tap((categories: Category[]) => this.categoriesStore.update(results => ({ ...results, categories })),
 					err => this.categoriesStore.setError(err),
 					() => this.categoriesStore.setLoading(false)));

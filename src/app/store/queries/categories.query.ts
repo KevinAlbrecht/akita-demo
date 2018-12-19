@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Query } from '@datorama/akita';
-import { CategoriesStore, CategoriesState } from '../states';
+import { Query, EntityState } from '@datorama/akita';
+import { CategoriesStore } from '../states';
+import { Category } from '../models';
 
 @Injectable()
-export class CategoriesQuery extends Query<CategoriesState> {
+export class CategoriesQuery extends Query<EntityState<Category>> {
 
 	constructor(protected store: CategoriesStore) {
 		super(store);

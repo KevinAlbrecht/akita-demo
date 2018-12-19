@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 	template: `
 	<p class="link link-simple" (click)="goToCat()">< Back to categories</p>
 	<ng-container>
-		<div class="loader" *ngIf="isLoading$|async; else content"></div>
+		<div class="loader" *ngIf="(isLoading$|async); else content"></div>
 		<app-error-message *ngIf="error$|async as error" [error]="error"></app-error-message>
 		<ng-container #content *ngIf="movies$ | async">
 			<app-movies-list [movies]="movies$ |async"></app-movies-list>

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Query } from '@datorama/akita';
+import { Query, QueryEntity } from '@datorama/akita';
 import { MoviesState, MoviesStore } from '../states';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Movie } from '../models';
 
 @Injectable()
