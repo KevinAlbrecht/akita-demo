@@ -17,7 +17,7 @@ export class MovieService {
 		return this.appRouteQuery.categoryIdParam$.pipe(
 			switchMap(catId => this.apiService.getMoviesByCategoryId(catId)),
 			tap(moviesByCategoryId => this.moviesStore.update(state => ({ ...state, moviesByCategoryId }))),
-			catchError(err => of([]).pipe(tap(() => this.moviesStore.setError(err)))),
+			catchError(err => of(null).pipe(tap(() => this.moviesStore.setError(err)))),
 			finalize(() => this.moviesStore.setLoading(false)),
 			map(a => null)
 		);
