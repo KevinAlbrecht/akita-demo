@@ -10,13 +10,13 @@ import { Router } from '@angular/router';
 	selector: 'app-category-detail',
 	template: `
 	<p class="link link-simple" (click)="goToCat()">< Back to categories</p>
-	<ng-container>
-		<div class="loader" *ngIf="(isLoading$|async); else content"></div>
-		<app-error-message *ngIf="error$|async as error" [error]="error"></app-error-message>
-		<ng-container #content *ngIf="movies$ | async">
-			<app-movies-list [movies]="movies$ |async"></app-movies-list>
-		</ng-container>
+	<ng-container *ngIf="isLoading$ | async; else content">
+		<div class="loader"></div>
 	</ng-container>
+	<ng-template #content>
+		<app-error-message *ngIf="error$|async as error" [error]="error"></app-error-message>
+			<app-movies-list  [movies]="movies$ | async"></app-movies-list>
+	</ng-template>
 	`
 })
 export class CategoryDetailComponent implements OnInit {
