@@ -15,7 +15,7 @@ export class CategoryService {
 		return this.apiService.getCategories()
 			.pipe(
 				take(1),
-				tap((categories: Category[]) => this.categoriesStore.update(results => ({ ...results, categories })),
+				tap((categories: Category[]) => this.categoriesStore.setState(results => ({ ...results, categories })),
 					err => this.categoriesStore.setError(err),
 					() => this.categoriesStore.setLoading(false)));
 	}
