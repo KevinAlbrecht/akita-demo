@@ -12,6 +12,7 @@ export class MovieService {
 		private appRouteQuery: ApplicationRouterQuery) { }
 
 	setMoviesByCategoryId(): Observable<void> {
+		this.moviesStore.reset();
 		this.moviesStore.setLoading(true);
 
 		return this.appRouteQuery.categoryIdParam$.pipe(

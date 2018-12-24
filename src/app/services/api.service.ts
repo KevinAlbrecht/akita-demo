@@ -8,7 +8,7 @@ import { ApiError } from '../store/models/api-error.model';
 
 @Injectable()
 export class ApiService {
-	private readonly delayTime = 1000;
+	private readonly delayTime = 700;
 
 	constructor() { }
 
@@ -19,7 +19,7 @@ export class ApiService {
 	getMoviesByCategoryId(categoryId: ID): Observable<Movie[]> {
 		// voluntarily trigger error
 		if (categoryId == 4) {
-			throw { code: 400, message: 'Bad category' } as ApiError;
+			throw { code: 400, message: '❌ Bad category ❌' } as ApiError;
 		}
 
 		return of(db.movies.reduce((datas, movie) => {

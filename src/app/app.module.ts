@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AkitaNgRouterStoreModule } from '@datorama/akita-ng-router-store';
 import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
+import { akitaConfig } from '@datorama/akita';
+
 
 import { AppComponent } from './app.component';
 import { CategoriesListComponent } from './components/categories-list.component';
@@ -42,4 +44,10 @@ const storesToProvide = [CategoriesStore, MoviesStore];
 	providers: [...servicesToProvide, ...queriesToProvide, ...storesToProvide],
 	bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+	constructor() {
+		akitaConfig({
+			resettable: true
+		});
+	}
+}
