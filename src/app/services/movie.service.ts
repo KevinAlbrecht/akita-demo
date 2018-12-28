@@ -4,8 +4,6 @@ import { ApiService } from './api.service';
 import { Observable, of } from 'rxjs';
 import { ApplicationRouterQuery } from '../store/queries';
 import { switchMap, tap, catchError, map, finalize } from 'rxjs/operators';
-import { setDataFromRouteToStore } from '../helper/get-from-route.helper';
-import { resetActive } from '@datorama/akita';
 
 @Injectable()
 export class MovieService {
