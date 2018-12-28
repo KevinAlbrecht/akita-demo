@@ -9,19 +9,23 @@ export class ApplicationRouterQuery extends RouterQuery {
 	private readonly noParamGiven: Error = new Error('No parameter given');
 	private readonly badParamGiven: Error = new Error('Bad parameter given');
 
+	private readonly categoryIdParamName = 'categoryId';
+	private readonly movieIdParamName = 'movieId';
+
 	constructor(protected store: RouterStore) {
 		super(store);
 	}
-	categoryIdParam$: Observable<ID> = this.select(s => this.getParameter(s, 'categoryId'));
+	categoryIdParam$: Observable<ID> = this.select(s => this.getParameter(s, this.categoryIdParamName));
+	movieIdParam$: Observable<ID> = this.select(s => this.getParameter(s, this.movieIdParamName));
 
-	private getParameter(snapshot: RouterState<RouterStateSnapshot>, parameterName: string): ID {
+	private getParameter(snapshotState: RouterState<RouterStateSnapshot>, parameterName: string): ID {
 		if (!parameterName) {
-			Observable.throw(this.noParamGiven);
+			throw (this.noParamGiven);
 		}
 
-		const value = snapshot.state.root.params[parameterName];
+		const value = snapshotState.state.root.params[parameterName];
 		if (!value) {
-			Observable.throw(this.badParamGiven);
+			throw (this.badParamGiven);
 		}
 
 		return value;

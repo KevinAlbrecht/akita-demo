@@ -30,6 +30,15 @@ export class ApiService {
 		}, [])).pipe(delay(this.delayTime));
 	}
 
+	getMovieById(movieId: ID): Observable<Movie> {
+		const currentMovie = db.movies.find(movie => movie.id == movieId);
+		if (!currentMovie) {
+			throw { code: 404, message: '❌ Movie not found ❌' } as ApiError;
+		}
+		debugger;
+		return of(currentMovie).pipe(delay(this.delayTime));
+	}
+
 	getCategories(): Observable<Category[]> {
 		return of(db.categories).pipe(delay(this.delayTime));
 	}

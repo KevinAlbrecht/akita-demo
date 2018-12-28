@@ -5,11 +5,12 @@ const MoviesStoreName = 'movies';
 
 export interface MoviesState extends EntityState {
 	moviesByCategoryId: Movie[];
+	currentMovie: Movie;
 }
 
 @StoreConfig({ name: MoviesStoreName })
 export class MoviesStore extends Store<MoviesState> {
 	constructor() {
-		super({ moviesByCategoryId: [] });
+		super({ moviesByCategoryId: [], currentMovie: null });
 	}
 }

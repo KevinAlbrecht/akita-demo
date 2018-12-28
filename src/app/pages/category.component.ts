@@ -7,19 +7,19 @@ import { take } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 @Component({
-	selector: 'app-category-detail',
+	selector: 'app-category',
 	template: `
-	<p class="link link-simple" (click)="goToCat()">< Back to categories</p>
+	<p class="link link-simple" (click)="goToCat()">👈 Back to categories</p>
 	<ng-container *ngIf="isLoading$ | async; else content">
 		<div class="loader"></div>
 	</ng-container>
 	<ng-template #content>
 		<app-error-message *ngIf="error$|async as error" [error]="error"></app-error-message>
-			<app-movies-list  [movies]="movies$ | async"></app-movies-list>
+			<app-movies-list (selectMovie)="goToMovieDetail($event)"  [movies]="movies$ | async"></app-movies-list>
 	</ng-template>
 	`
 })
-export class CategoryDetailComponent implements OnInit {
+export class CategoryComponent implements OnInit {
 
 	movies$: Observable<Movie[]>;
 	error$: Observable<Error>;
@@ -39,6 +39,10 @@ export class CategoryDetailComponent implements OnInit {
 	goToCat() {
 		// navigate with effect
 		this.router.navigate(['']);
+	}
+
+	goToMovieDetail(movieId: number) {
+		this.router.navigate([`movie/${movieId}`]);
 	}
 
 	ngOnInit() {

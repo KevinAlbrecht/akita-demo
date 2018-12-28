@@ -7,7 +7,7 @@ import { Category } from '../store/models/category.model';
 import { take, takeUntil } from 'rxjs/operators';
 
 @Component({
-	selector: 'app-categories-list',
+	selector: 'app-categories',
 	template: `
 		<h3>Choose a category</h3>
 		<ng-container *ngIf="isLoading$ | async; else content">
@@ -15,13 +15,13 @@ import { take, takeUntil } from 'rxjs/operators';
 		</ng-container>
 		<ng-template #content>
 			<app-error-message *ngIf="error$ |async as error" [error]="error"></app-error-message>
-			<p class="link" *ngFor="let category of (categories$ | async)" (click)="goToCategory(category.id)">
+			<p class="link category-link" *ngFor="let category of (categories$ | async)" (click)="goToCategory(category.id)">
 				{{category.title}} <span class="emoji" [ngClass]="category.emojiStyle">{{category.emoji}}</span>
 			</p>
 		</ng-template>
 		`
 })
-export class CategoriesListComponent implements OnInit {
+export class CategoriesComponent implements OnInit {
 	constructor(private router: Router,
 		private categoriesQuery: CategoriesQuery,
 		private categoryService: CategoryService) { }

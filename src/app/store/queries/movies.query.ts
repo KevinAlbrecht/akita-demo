@@ -15,6 +15,8 @@ export class MoviesQuery extends Query<MoviesState> {
 	moviesByCategoryId$ = this.getMoviesByCategoryId();
 	moviesByCategoryIdCount$ = this.select(s => s.moviesByCategoryId.length);
 
+	currentMovie$ = this.select(s => s.currentMovie);
+
 	private getMoviesByCategoryId(): Observable<Movie[]> {
 		return this.select(s => s.moviesByCategoryId);
 	}

@@ -4,6 +4,8 @@ import { ApiService } from './api.service';
 import { Observable, of } from 'rxjs';
 import { ApplicationRouterQuery } from '../store/queries';
 import { switchMap, tap, catchError, map, finalize } from 'rxjs/operators';
+import { setDataFromRouteToStore } from '../helper/get-from-route.helper';
+import { resetActive } from '@datorama/akita';
 
 @Injectable()
 export class MovieService {
@@ -19,9 +21,20 @@ export class MovieService {
 			switchMap(catId => this.apiService.getMoviesByCategoryId(catId)),
 			tap(moviesByCategoryId => this.moviesStore.setState(state => ({ ...state, moviesByCategoryId }))),
 			catchError(err => of(null).pipe(tap(() => this.moviesStore.setError(err)))),
-
 			finalize(() => this.moviesStore.setLoading(false)),
 			map(a => null)
 		);
+	}
+
+	setCurrentMovieDetails(): Observable<void> {
+		this.moviesStore.reset();
+		this.moviesStore.setLoading(true);
+
+		return this.appRouteQuery.movieIdParam$.pipe(
+			switchMap(movieId => this.apiService.getMovieById(movieId)),
+			tap(currentMovie => this.moviesStore.setState(state => ({ ...state, currentMovie }))),
+			catchError(err => of(null).pipe(tap(() => this.moviesStore.setError(err)))),
+			finalize(() => this.moviesStore.setLoading(false)),
+			map(a => null));
 	}
 }
