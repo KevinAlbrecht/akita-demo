@@ -35,7 +35,6 @@ export class ApiService {
 		if (!currentMovie) {
 			throw { code: 404, message: '❌ Movie not found ❌' } as ApiError;
 		}
-		debugger;
 		return of(currentMovie).pipe(delay(this.delayTime));
 	}
 
