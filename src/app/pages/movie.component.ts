@@ -9,7 +9,6 @@ import { take } from 'rxjs/operators';
 @Component({
 	selector: 'app-movie',
 	template: `<div>
-
 	<p class="link link-simple" (click)="backToCategory()">👈 Back to current category</p>
 	<ng-container *ngIf="isLoading$ | async; else content">
 		<div class="loader"></div>
@@ -31,7 +30,7 @@ export class MovieComponent implements OnInit {
 		private movieService: MovieService,
 		private router: Router
 	) {
-		const subscrib = this.moviesQuery.currentMovie$.pipe(take(2)).subscribe(movie => { this.movie = movie; console.log("sub", subscrib); });
+		this.moviesQuery.currentMovie$.pipe(take(2)).subscribe(movie => this.movie = movie);
 		this.error$ = this.moviesQuery.selectError();
 		this.isLoading$ = this.moviesQuery.selectLoading();
 	}

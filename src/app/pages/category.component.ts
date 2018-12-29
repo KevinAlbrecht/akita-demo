@@ -37,7 +37,6 @@ export class CategoryComponent implements OnInit {
 	}
 
 	goToCat() {
-		// navigate with effect
 		this.router.navigate(['']);
 	}
 
