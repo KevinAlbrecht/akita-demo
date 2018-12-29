@@ -10,19 +10,19 @@ import { take } from 'rxjs/operators';
 	selector: 'app-movie',
 	template: `<div>
 
-	<p class="link link-simple">👈 Back to current category</p>
+	<p class="link link-simple" (click)="backToCategory()">👈 Back to current category</p>
 	<ng-container *ngIf="isLoading$ | async; else content">
 		<div class="loader"></div>
 	</ng-container>
 	<ng-template #content>
 		<app-error-message *ngIf="error$|async as error" [error]="error"></app-error-message>
-		<app-movie-detail *ngIf="movie$|async as movie" [movie]="movie"></app-movie-detail>
+		<app-movie-detail *ngIf="movie" [movie]="movie"></app-movie-detail>
 	</ng-template>
 	</div>`
 })
 
 export class MovieComponent implements OnInit {
-	movie$: Observable<Movie>;
+	movie: Movie;
 	error$: Observable<Error>;
 	isLoading$: Observable<boolean>;
 
@@ -31,16 +31,18 @@ export class MovieComponent implements OnInit {
 		private movieService: MovieService,
 		private router: Router
 	) {
-		this.movie$ = this.moviesQuery.currentMovie$;
+		const subscrib = this.moviesQuery.currentMovie$.pipe(take(2)).subscribe(movie => { this.movie = movie; console.log("sub", subscrib); });
 		this.error$ = this.moviesQuery.selectError();
 		this.isLoading$ = this.moviesQuery.selectLoading();
 	}
 
-	ngOnInit() {
-		this.movieService.setCurrentMovieDetails().pipe(take(1)).subscribe();
+	backToCategory() {
+		if (this.movie) {
+			this.router.navigate([`category/${this.movie.categoryId}`]);
+		}
 	}
 
-	goToCat(movie) {
-		console.log("movie", movie);
+	ngOnInit() {
+		this.movieService.setCurrentMovieDetails().pipe(take(1)).subscribe();
 	}
 }
