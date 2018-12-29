@@ -1,2 +1,2 @@
 export * from './categories.store';
-export const CategoriesStoreName = 'categories';
+export * from './movies.store';

@@ -1,18 +1,11 @@
-import { Store, StoreConfig } from '@datorama/akita';
-import { Category } from '../../models';
-import { CategoriesStoreName } from './index';
+import { Store, StoreConfig, EntityState } from '@datorama/akita';
+import { Category } from '../models/category.model';
 
-export interface CategoriesState {
-	categories: Category[];
-}
-
-export function createInitialState(): CategoriesState {
-	return { categories: [] };
-}
+const CategoriesStoreName = 'categories';
 
 @StoreConfig({ name: CategoriesStoreName })
-export class CategoriesStore extends Store<CategoriesState> {
+export class CategoriesStore extends Store<EntityState<Category>> {
 	constructor() {
-		super(createInitialState);
+		super({});
 	}
 }

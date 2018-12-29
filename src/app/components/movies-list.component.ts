@@ -1,11 +1,12 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
-import { Movie } from '../models';
+import { Component, OnInit, ChangeDetectionStrategy, Input, EventEmitter, Output } from '@angular/core';
+import { Movie } from '../store/models/movie.model';
 
 @Component({
 	selector: 'app-movies-list',
 	template: `
 	<div class="movies-wrapper">
-		<div *ngFor="let movie of movies" class="movie-bloc" [style.background-image]="'url(/assets/images/'+movie.picto+')'">
+		<div *ngFor="let movie of movies" (click)="selectMovie.emit(movie.id)" class="movie-bloc"
+		[style.background-image]="'url(/assets/images/'+movie.picto+')'">
 			<div class="hidden-text">
 				<p> {{movie.RecordedYear}}</p>
 				<span class="desc">Special mention:</span>
@@ -22,6 +23,7 @@ import { Movie } from '../models';
 })
 
 export class MoviesListComponent {
-	@Input()
-	movies: Movie[];
+	@Input() movies: Movie[];
+	@Output() selectMovie: EventEmitter<number> = new EventEmitter();
+
 }

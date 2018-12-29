@@ -1,36 +1,58 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { AkitaNgRouterStoreModule } from '@datorama/akita-ng-router-store';
+import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
+import { akitaConfig } from '@datorama/akita';
+
 
 import { AppComponent } from './app.component';
-import { CategoriesListComponent } from './components/categories-list.component';
-import { Routes, RouterModule } from '@angular/router';
-import { ErrorComponent } from './components/error.component';
-import { CategoryDetailComponent } from './components/category-detail.component';
-import { ApiService } from './services/api.service';
-import { CategoryService } from './services/category.service';
-import { CategoriesQuery } from './store/queries';
+import { CategoriesComponent } from './pages/categories.component';
+import { ErrorMessageComponent } from './components/error-message.component';
 import { MoviesListComponent } from './components/movies-list.component';
-import { CategoriesStore } from './store/states/categories.store';
+import { CategoryComponent } from './pages/category.component';
+
+import { CategoryService, MovieService, ApiService } from './services';
+import { CategoriesQuery, MoviesQuery, ApplicationRouterQuery } from './store/queries';
+import { CategoriesStore, MoviesStore } from './store/states';
+import { MovieComponent } from './pages/movie.component';
+import { MovieDetailsComponent } from './components/movie-details.component';
+
 
 const routes: Routes = [
-	{ path: '', component: CategoriesListComponent, pathMatch: 'full' },
-	{ path: 'category/:categoryId', component: CategoryDetailComponent, pathMatch: 'full' },
-	{ path: 'error', component: ErrorComponent, pathMatch: 'full' }
+	{ path: '', component: CategoriesComponent, pathMatch: 'full' },
+	{ path: 'category/:categoryId', component: CategoryComponent, pathMatch: 'full' },
+	{ path: 'movie/:movieId', component: MovieComponent, pathMatch: 'full' },
+	{ path: '**', redirectTo: '', pathMatch: 'full' },
 ];
+
+const servicesToProvide = [ApiService, CategoryService, MovieService];
+const queriesToProvide = [CategoriesQuery, MoviesQuery, ApplicationRouterQuery];
+const storesToProvide = [CategoriesStore, MoviesStore];
 
 @NgModule({
 	declarations: [
 		AppComponent,
-		ErrorComponent,
-		CategoryDetailComponent,
-		CategoriesListComponent,
-		MoviesListComponent
+		ErrorMessageComponent,
+		CategoryComponent,
+		CategoriesComponent,
+		MoviesListComponent,
+		MovieComponent,
+		MovieDetailsComponent
 	],
 	imports: [
 		BrowserModule,
-		RouterModule.forRoot(routes)
+		RouterModule.forRoot(routes),
+		AkitaNgDevtools.forRoot(),
+		AkitaNgRouterStoreModule.forRoot()
 	],
-	providers: [ApiService, CategoryService, CategoriesQuery, CategoriesStore],
+	providers: [...servicesToProvide, ...queriesToProvide, ...storesToProvide],
 	bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+	constructor() {
+		akitaConfig({
+			resettable: true
+		});
+	}
+}
